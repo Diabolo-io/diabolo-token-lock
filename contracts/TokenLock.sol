@@ -1,13 +1,19 @@
 // SPDX-License-Identifier: GNU
 pragma solidity ^0.8.2;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+/*
+    ERC20 Standard Token interface
+*/
+interface IERC20 {
+    function transferFrom(address from, address to, uint256 value) external returns (bool);
+    function transfer(address to, uint256 value) external returns (bool);
+}
 
 /**
  * @dev Time-locks tokens according to an unlock schedule and address.
  */
 contract TokenLock {
-    ERC20 public immutable token;
+    IERC20 public immutable token;
     uint256 public immutable unlockBegin;
     uint256 public immutable unlockCliff;
     uint256 public immutable unlockEnd;
@@ -25,7 +31,7 @@ contract TokenLock {
      * @param _unlockCliff The first time at which tokens are claimable.
      * @param _unlockEnd The time at which the last token will unlock.
      */
-    constructor(ERC20 _token, uint256 _unlockBegin, uint256 _unlockCliff, uint256 _unlockEnd) {
+    constructor(IERC20 _token, uint256 _unlockBegin, uint256 _unlockCliff, uint256 _unlockEnd) {
         require(_unlockBegin >= block.timestamp, "ERC20Locked: Unlock must begin in the future");
         require(_unlockCliff >= _unlockBegin, "ERC20Locked: Unlock cliff must not be before unlock begin");
         require(_unlockEnd >= _unlockCliff, "ERC20Locked: Unlock end must not be before unlock cliff");
