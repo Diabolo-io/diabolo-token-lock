@@ -43,14 +43,13 @@ contract TokenLock {
 
     /**
      * @dev Returns the maximum number of tokens currently claimable by `owner`.
-     * @param owner The account to check the claimable balance of.
+     * @param owner The account to check the claimable amounts of.
      * @return The number of tokens currently claimable.
      */
-    function claimableBalance(address owner) public view returns(uint256) {
+    function claimableAmounts(address owner) public view returns(uint256) {
         if(block.timestamp < unlockCliff) {
             return 0;
         }
-
         uint256 locked = lockedAmounts[owner];
         uint256 claimed = claimedAmounts[owner];
         if(block.timestamp >= unlockEnd) {
