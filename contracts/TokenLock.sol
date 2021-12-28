@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: GNU
-pragma solidity ^0.8.2;
 pragma solidity ^0.8.11;
 
-/*
-    ERC20 Standard Token interface
-*/
 /**
  * @dev ERC20 Standard Token interface
  */
