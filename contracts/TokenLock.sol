@@ -98,6 +98,13 @@ contract TokenLock {
     }
 
     /**
+     * @dev Returns the total of locked addresses.
+     * @return The total number of locked addresses.
+     */
+    function totalLockedAddresses() public view returns (uint256) {
+        return lockedAddress.length;
+    }
+
     /**
      * @dev Returns all locked addresses.
      * @return All locked addresses.

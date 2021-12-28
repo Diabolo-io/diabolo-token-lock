@@ -44,6 +44,10 @@ This call returns if address exist on lockedAddress.
 
 This call returns all registered addresses.
 
+##### totalLockedAddresses()
+
+This call returns the total the total of locked addresses.
+
 ##### totalClaimableAmount()
 
 This call returns the total tokens claimable by all addresses.
