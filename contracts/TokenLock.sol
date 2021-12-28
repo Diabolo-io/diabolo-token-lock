@@ -62,8 +62,8 @@ contract TokenLock {
     }
 
     /**
-     * @dev Return total locked amount for all addresses.
-     * @return Return total locked amount for all addresses.
+     * @dev Returns total locked amount for all addresses in lockedAddress.
+     * @return The total number of tokens locked by all addresses.
      */
     function totalLockedAmount() public view returns(uint256) {
         uint256 total = 0;
@@ -74,8 +74,8 @@ contract TokenLock {
     }
 
     /**
-     * @dev Return total claimed amount for all addresses.
-     * @return Return total claimed amount for all addresses.
+     * @dev Returns total claimed amount for all addresses in lockedAddress.
+     * @return The total number of tokens claimed by all addresses.
      */
     function totalClaimedAmount() public view returns(uint256) {
         uint256 total = 0;
@@ -86,8 +86,8 @@ contract TokenLock {
     }
 
     /**
-     * @dev Return total claimable amount for all addresses.
-     * @return Return total claimable amount for all addresses.
+     * @dev Returns total claimable amount for all addresses in lockedAddress.
+     * @return The total number of tokens claimable by all addresses.
      */
     function totalClaimableAmount() public view returns(uint256) {
         uint256 total = 0;
@@ -98,8 +98,9 @@ contract TokenLock {
     }
 
     /**
-     * @dev Return all locked addresses.
-     * @return Return all locked addresses.
+    /**
+     * @dev Returns all locked addresses.
+     * @return All locked addresses.
      */
     function lockedAddresses() public view returns (address[] memory) {
         return lockedAddress;
