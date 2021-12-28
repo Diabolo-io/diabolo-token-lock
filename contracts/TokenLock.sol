@@ -77,7 +77,7 @@ contract TokenLock {
      * @param amount The amount to transfer. If greater than the claimable amount, the maximum is transferred.
      */
     function claim(address recipient, uint256 amount) external {
-        uint256 claimable = claimableBalance(msg.sender);
+        uint256 claimable = claimableAmounts(msg.sender);
         if(amount > claimable) {
             amount = claimable;
         }
