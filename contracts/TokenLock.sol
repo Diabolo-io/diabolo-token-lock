@@ -62,6 +62,42 @@ contract TokenLock {
     }
 
     /**
+     * @dev Return total locked amount for all addresses.
+     * @return Return total locked amount for all addresses.
+     */
+    function totalLockedAmount() public view returns(uint256) {
+        uint256 total = 0;
+        for (uint256 i = 0; i < lockedAddress.length; i++) {
+            total += lockedAmounts[lockedAddress[i]];
+        }
+        return total;
+    }
+
+    /**
+     * @dev Return total claimed amount for all addresses.
+     * @return Return total claimed amount for all addresses.
+     */
+    function totalClaimedAmount() public view returns(uint256) {
+        uint256 total = 0;
+        for (uint256 i = 0; i < lockedAddress.length; i++) {
+            total += claimedAmounts[lockedAddress[i]];
+        }
+        return total;
+    }
+
+    /**
+     * @dev Return total claimable amount for all addresses.
+     * @return Return total claimable amount for all addresses.
+     */
+    function totalClaimableAmount() public view returns(uint256) {
+        uint256 total = 0;
+        for (uint256 i = 0; i < lockedAddress.length; i++) {
+            total += claimableAmounts(lockedAddress[i]);
+        }
+        return total;
+    }
+
+    /**
      * @dev Return all locked addresses.
      * @return Return all locked addresses.
      */
