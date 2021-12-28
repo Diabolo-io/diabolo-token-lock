@@ -1,9 +1,13 @@
 // SPDX-License-Identifier: GNU
 pragma solidity ^0.8.2;
+pragma solidity ^0.8.11;
 
 /*
     ERC20 Standard Token interface
 */
+/**
+ * @dev ERC20 Standard Token interface
+ */
 interface IERC20 {
     function transferFrom(address from, address to, uint256 value) external returns (bool);
     function transfer(address to, uint256 value) external returns (bool);
