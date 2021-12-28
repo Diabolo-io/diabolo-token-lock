@@ -11,8 +11,6 @@ Time locks tokens according to an unlock schedule and address.
 | unlockCliff | uint256 | The first time at which tokens are claimable.
 | unlockEnd | uint256 | The time at which the last token will unlock.
 
-### Constructor
-
 The constructor set :
 
  - The address of the token contract to be locked : "token" (address)
