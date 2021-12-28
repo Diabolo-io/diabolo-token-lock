@@ -18,6 +18,9 @@ contract TokenLock {
     uint256 public immutable unlockCliff;
     uint256 public immutable unlockEnd;
 
+    address[] public lockedAddress;
+
+    mapping(address=>bool) public lockedAddressExist;
     mapping(address=>uint256) public lockedAmounts;
     mapping(address=>uint256) public claimedAmounts;
 
@@ -59,6 +62,14 @@ contract TokenLock {
     }
 
     /**
+     * @dev Return all locked addresses.
+     * @return Return all locked addresses.
+     */
+    function lockedAddresses() public view returns (address[] memory) {
+        return lockedAddress;
+    }
+
+    /**
      * @dev Transfers tokens from the caller to the token lock contract and locks them for benefit of `recipient`.
      *      Requires that the caller has authorised this contract with the token contract.
      * @param recipient The account the tokens will be claimable by.
@@ -66,6 +77,10 @@ contract TokenLock {
      */
     function lock(address recipient, uint256 amount) external {
         require(block.timestamp < unlockEnd, "TokenLock: Unlock period already complete");
+        if(!lockedAddressExist[recipient]){
+            lockedAddress.push(recipient);
+            lockedAddressExist[recipient] = true;
+        }
         lockedAmounts[recipient] += amount;
         require(token.transferFrom(msg.sender, address(this), amount), "TokenLock: Transfer failed");
         emit Locked(msg.sender, recipient, amount);
