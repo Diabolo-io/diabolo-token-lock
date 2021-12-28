@@ -65,7 +65,7 @@ contract TokenLock {
      * @dev Returns total locked amount for all addresses in lockedAddress.
      * @return The total number of tokens locked by all addresses.
      */
-    function totalLockedAmount() public view returns(uint256) {
+    function totalLockedAmount() external view returns(uint256) {
         uint256 total = 0;
         for (uint256 i = 0; i < lockedAddress.length; i++) {
             total += lockedAmounts[lockedAddress[i]];
@@ -77,7 +77,7 @@ contract TokenLock {
      * @dev Returns total claimed amount for all addresses in lockedAddress.
      * @return The total number of tokens claimed by all addresses.
      */
-    function totalClaimedAmount() public view returns(uint256) {
+    function totalClaimedAmount() external view returns(uint256) {
         uint256 total = 0;
         for (uint256 i = 0; i < lockedAddress.length; i++) {
             total += claimedAmounts[lockedAddress[i]];
@@ -89,7 +89,7 @@ contract TokenLock {
      * @dev Returns total claimable amount for all addresses in lockedAddress.
      * @return The total number of tokens claimable by all addresses.
      */
-    function totalClaimableAmount() public view returns(uint256) {
+    function totalClaimableAmount() external view returns(uint256) {
         uint256 total = 0;
         for (uint256 i = 0; i < lockedAddress.length; i++) {
             total += claimableAmounts(lockedAddress[i]);
@@ -101,7 +101,7 @@ contract TokenLock {
      * @dev Returns the total of locked addresses.
      * @return The total number of locked addresses.
      */
-    function totalLockedAddresses() public view returns (uint256) {
+    function totalLockedAddresses() external view returns (uint256) {
         return lockedAddress.length;
     }
 
@@ -109,7 +109,7 @@ contract TokenLock {
      * @dev Returns all locked addresses.
      * @return All locked addresses.
      */
-    function lockedAddresses() public view returns (address[] memory) {
+    function lockedAddresses() external view returns (address[] memory) {
         return lockedAddress;
     }
 
