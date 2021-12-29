@@ -13,6 +13,7 @@ interface IERC20 {
  * @dev Time-locks tokens according to an unlock schedule and address.
  */
 contract TokenLock {
+    string public name;
     IERC20 public immutable token;
     uint256 public immutable unlockBegin;
     uint256 public immutable unlockCliff;
@@ -29,15 +30,17 @@ contract TokenLock {
 
     /**
      * @dev Constructor.
+     * @param _name The name of this token lock contract.
      * @param _token The token this contract will lock.
      * @param _unlockBegin The time at which unlocking of tokens will begin.
      * @param _unlockCliff The first time at which tokens are claimable.
      * @param _unlockEnd The time at which the last token will unlock.
      */
-    constructor(IERC20 _token, uint256 _unlockBegin, uint256 _unlockCliff, uint256 _unlockEnd) {
+    constructor(string memory _name, IERC20 _token, uint256 _unlockBegin, uint256 _unlockCliff, uint256 _unlockEnd) {
         require(_unlockBegin >= block.timestamp, "ERC20Locked: Unlock must begin in the future");
         require(_unlockCliff >= _unlockBegin, "ERC20Locked: Unlock cliff must not be before unlock begin");
         require(_unlockEnd >= _unlockCliff, "ERC20Locked: Unlock end must not be before unlock cliff");
+        name = _name;
         token = _token;
         unlockBegin = _unlockBegin;
         unlockCliff = _unlockCliff;
