@@ -117,12 +117,28 @@ contract TokenLock {
     }
 
     /**
+     * @dev Transfers tokens from the caller to the token lock contract and locks them.
+     *      Requires that the caller has authorised this contract with the token contract.
+     * @param amount The number of tokens to transfer and lock.
+     */
+    function lock(uint256 amount) external {
+        require(block.timestamp < unlockEnd, "TokenLock: Unlock period already complete");
+        if(!lockedAddressExist[msg.sender]){
+            lockedAddress.push(msg.sender);
+            lockedAddressExist[msg.sender] = true;
+        }
+        lockedAmounts[msg.sender] += amount;
+        require(token.transferFrom(msg.sender, address(this), amount), "TokenLock: Transfer failed");
+        emit Locked(msg.sender, msg.sender, amount);
+    }
+
+    /**
      * @dev Transfers tokens from the caller to the token lock contract and locks them for benefit of `recipient`.
      *      Requires that the caller has authorised this contract with the token contract.
      * @param recipient The account the tokens will be claimable by.
      * @param amount The number of tokens to transfer and lock.
      */
-    function lock(address recipient, uint256 amount) external {
+    function lockFor(address recipient, uint256 amount) external {
         require(block.timestamp < unlockEnd, "TokenLock: Unlock period already complete");
         if(!lockedAddressExist[recipient]){
             lockedAddress.push(recipient);
