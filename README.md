@@ -6,6 +6,7 @@ Time locks tokens according to an unlock schedule and address.
 
 | Variable | Type | Description |
 | ------ | ------ | ------ |
+| name | string | The name of this token lock contract.
 | token | address | The token address this contract will lock.
 | unlockBegin | uint256 | The time at which unlocking of tokens will begin.
 | unlockCliff | uint256 | The first time at which tokens are claimable.
@@ -13,6 +14,7 @@ Time locks tokens according to an unlock schedule and address.
 
 The constructor set :
 
+ - The name of this token lock contract : "name" (string)
  - The address of the token contract to be locked : "token" (address)
  - The time at which unlocking of tokens will begin : "unlockBegin" (timestamp)
  - The first time at which tokens are claimable : "unlockCliff" (timestamp)
@@ -60,6 +62,10 @@ This call returns the total of tokens claimed by all addresses.
 
 This call returns the total of tokens locked by all addresses.
 
+##### name()
+
+This call returns the name of contract.
+
 ##### token()
 
 This call returns the contract address of the token.
@@ -78,10 +84,18 @@ This call returns the time at which the last token will unlock.
 
 ### Write Contract
 
-##### lock(address, amount)
+##### lock(amount)
+
+This function locks a token amount. (You must approve the token lock contract address to use the amount)
+
+##### lockFor(address, amount)
 
 This function locks a token amount for an address. (You must approve the token lock contract address to use the amount)
 
 ##### claim(address, amount)
 
-This function claims a token amount claimable by the sender and sends it to an address.
+This function claims a claimable token amount by the sender and sends it to an address.
+
+##### claimFor(address, amount)
+
+This function claims a claimable token amount by the address and sends it to it.
