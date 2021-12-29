@@ -26,7 +26,7 @@ contract TokenLock {
     mapping(address=>uint256) public claimedAmounts;
 
     event Locked(address indexed sender, address indexed recipient, uint256 amount);
-    event Claimed(address indexed owner, address indexed recipient, uint256 amount);
+    event Claimed(address indexed sender, address indexed owner, address indexed recipient, uint256 amount);
 
     /**
      * @dev Constructor.
@@ -161,6 +161,21 @@ contract TokenLock {
         }
         claimedAmounts[msg.sender] += amount;
         require(token.transfer(recipient, amount), "TokenLock: Transfer failed");
-        emit Claimed(msg.sender, recipient, amount);
+        emit Claimed(msg.sender, msg.sender, recipient, amount);
+    }
+
+    /**
+     * @dev Claims the owner's tokens that have been unlocked.
+     * @param owner The account with unlocked tokens to claim.
+     * @param amount The amount to transfer. If greater than the claimable amount, the maximum is transferred.
+     */
+    function claimFor(address owner, uint256 amount) external {
+        uint256 claimable = claimableAmounts(owner);
+        if(amount > claimable) {
+            amount = claimable;
+        }
+        claimedAmounts[owner] += amount;
+        require(token.transfer(owner, amount), "TokenLock: Transfer failed");
+        emit Claimed(msg.sender, owner, owner, amount);
     }
 }
